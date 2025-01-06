@@ -1,10 +1,14 @@
 {
   "name": "storehaven",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Lightweight Persistent State Management Library",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elfunky/StoreHaven.git"
   },
   "author": "sourabh atigre",
   "license": "ISC"

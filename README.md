@@ -1,12 +1,10 @@
 # storehaven
 
-**storehaven** is a lightweight, customizable state management library for React Native applications. It simplifies the process of persisting and managing application state across components and app restarts using `AsyncStorage`.
-
----
+## **storehaven** is a lightweight, customizable state management library for React Native applications. It simplifies the process of persisting and managing application state across components for **react native**.
 
 ## Features
 
-- **Persistent State Management**: Automatically save and load state to/from `AsyncStorage`.
+- **Persistent State Management**: Automatically save and load state.
 - **Custom Blacklisting**: Exclude specific states from persistence.
 - **Reactivity**: Subscribe to state changes and update UI dynamically.
 - **Easy Integration**: Minimal setup and flexible API.
