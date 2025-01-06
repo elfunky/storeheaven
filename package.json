@@ -1,6 +1,6 @@
 {
   "name": "storehaven",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Lightweight Persistent State Management Library",
   "main": "index.js",
   "scripts": {
