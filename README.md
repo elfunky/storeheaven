@@ -1,6 +1,6 @@
-# storeheaven
+# storehaven
 
-## **storeheaven** is a lightweight, customizable state management library for React Native applications. It simplifies the process of persisting and managing application state across components for **react native**.
+## **storehaven** is a lightweight, customizable state management library for React Native applications. It simplifies the process of persisting and managing application state across components for **react native**.
 
 ## Features
 
@@ -13,14 +13,14 @@
 
 ## Installation
 
-Install **storeheaven** via npm:
+Install **storehaven** via npm:
 
 ```bash
-npm install storeheaven
+npm install storehaven
 
 or
 
-yarn add storeheaven
+yarn add storehaven
 ```
 
 # Usage
@@ -32,7 +32,7 @@ yarn add storeheaven
 #### (note you can provide desired name for store file)
 
 ```javascript
-import { createStore } from "storeheaven";
+import { createStore } from "storehaven";
 
 const demoInitialState = {
   isDemoMode: false,
@@ -111,7 +111,7 @@ export default App;
 ```javascript
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import { useStoreState } from "storeheaven";
+import { useStoreState } from "storehaven";
 import { demoStore } from "./demoStore";
 
 const DemoComponent = () => {
