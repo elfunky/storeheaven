@@ -16,12 +16,14 @@
 Install **storehaven** via npm:
 
 ```bash
-npm install storehaven
+npm install storehaven react-native-mmkv
 
 or
 
-yarn add storehaven
+yarn add storehaven react-native-mmkv
 ```
+
+> **storehaven** persists state using [`react-native-mmkv`](https://github.com/mrousavy/react-native-mmkv), so it must be installed alongside it as a peer dependency. MMKV relies on JSI and does **not** work inside Expo Go — use a custom dev client (`expo prebuild` / EAS Build) or a bare React Native project instead.
 
 # Usage
 
@@ -159,7 +161,7 @@ Creates a store with the provided `name` and `initialState`.
 
 ### `initializeStore()`
 
-Initializes the store and loads its state from AsyncStorage.
+Initializes the store and loads its state from MMKV.
 
 ---
 
@@ -184,6 +186,12 @@ Initializes the store and loads its state from AsyncStorage.
 ### `useStoreState(store, key)`
 
 React hook for accessing and updating store state in functional components.
+
+# Running Tests
+
+```bash
+npm test
+```
 
 # Contributing
 
