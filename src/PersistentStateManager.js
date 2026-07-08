@@ -1,28 +1,29 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from "react-native-mmkv";
 
 class PersistentStateManager {
   constructor(storageKey = "persistentStatetate") {
     this.storageKey = storageKey;
+    this.storage = new MMKV({ id: storageKey });
     this.state = {};
     this.listeners = new Set();
     this.isInitialized = false;
   }
 
-  async loadState() {
+  loadState() {
     try {
-      const savedState = await AsyncStorage.getItem(this.storageKey);
+      const savedState = this.storage.getString(this.storageKey);
       return savedState ? JSON.parse(savedState) : null;
     } catch (error) {
-      console.error("Failed to load state from AsyncStorage:", error);
+      console.error("Failed to load state from MMKV:", error);
       return null;
     }
   }
 
-  async saveState() {
+  saveState() {
     try {
-      await AsyncStorage.setItem(this.storageKey, JSON.stringify(this.state));
+      this.storage.set(this.storageKey, JSON.stringify(this.state));
     } catch (error) {
-      console.error("Failed to save state to AsyncStorage:", error);
+      console.error("Failed to save state to MMKV:", error);
     }
   }
 
@@ -32,9 +33,9 @@ class PersistentStateManager {
       return;
     }
 
-    const loadedState = await this.loadState();
+    const loadedState = this.loadState();
     this.state = { ...initialState, ...loadedState };
-    await this.saveState();
+    this.saveState();
     this.isInitialized = true;
     this.notifyListeners();
   }
@@ -54,7 +55,7 @@ class PersistentStateManager {
     }
 
     this.state = { ...this.state, ...updates };
-    await this.saveState();
+    this.saveState();
     this.notifyListeners();
   }
 
