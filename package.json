@@ -3,6 +3,12 @@
   "version": "2.1.0",
   "description": "A Lightweight Persistent State Management Library",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "src",
+    "!src/**/__tests__",
+    "!src/**/*.test.js"
+  ],
   "scripts": {
     "test": "jest"
   },
