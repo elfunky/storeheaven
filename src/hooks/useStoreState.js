@@ -14,18 +14,14 @@ export const useStoreState = (store, key) => {
       return;
     }
 
-    // Get the current state for the key
-    const currentState = store.getState(key);
-    console.log(`Current state from ${store.name}:`, currentState);
+    // Sync the current value (it may have changed between render and effect).
+    setLocalState(store.getState(key));
 
-    if (currentState !== undefined) {
-      setLocalState(currentState);
-    }
-
-    // Subscribe to state changes
-    const unsubscribe = store.subscribe((newState) => {
-      setLocalState(key ? newState[key] : newState);
-    });
+    // Subscribe scoped to `key` so this component only re-renders when THIS
+    // key changes. Without a key it falls back to a whole-store subscription.
+    const unsubscribe = store.subscribe(() => {
+      setLocalState(store.getState(key));
+    }, key);
 
     // Cleanup subscription on unmount
     return () => unsubscribe();

@@ -40,4 +40,49 @@ describe("createStore", () => {
     expect(storeA.getState("value")).toBe("updated");
     expect(storeB.getState("value")).toBe("b");
   });
+
+  test("resetState is exposed and restores the initial state", async () => {
+    const store = createStore("cs-reset", { count: 0 });
+    await store.initializeStore();
+    await store.setState({ count: 7 });
+
+    expect(store.getState("count")).toBe(7);
+
+    store.resetState();
+    expect(store.getState("count")).toBe(0);
+  });
+
+  test("blacklist option keeps a key out of persistence", async () => {
+    const store = createStore(
+      "cs-bl",
+      { session: "", count: 0 },
+      { blacklist: ["session"] }
+    );
+    await store.initializeStore();
+    await store.setState({ session: "abc", count: 2 });
+
+    const reloaded = createStore(
+      "cs-bl",
+      { session: "", count: 0 },
+      { blacklist: ["session"] }
+    );
+    await reloaded.initializeStore();
+
+    expect(reloaded.getState("count")).toBe(2);
+    expect(reloaded.getState("session")).toBe("");
+  });
+
+  test("subscribe accepts a key for granular notifications", async () => {
+    const store = createStore("cs-keyed", { a: 1, b: 2 });
+    await store.initializeStore();
+
+    const aListener = jest.fn();
+    store.subscribe(aListener, "a");
+
+    await store.setState({ b: 5 });
+    expect(aListener).not.toHaveBeenCalled();
+
+    await store.setState({ a: 9 });
+    expect(aListener).toHaveBeenCalledTimes(1);
+  });
 });
